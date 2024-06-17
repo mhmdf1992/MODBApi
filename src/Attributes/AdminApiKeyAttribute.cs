@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MO.MODBApi.DataModels.Sys;
 using System;
 using System.Threading.Tasks;
 
-namespace MODB.Api.Attributes
+namespace MO.MODBApi.Attributes
 {
     [AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
     public class AdminApiKeyAttribute : Attribute, IAsyncActionFilter
@@ -17,7 +18,7 @@ namespace MODB.Api.Attributes
                 throw new Exceptions.ApplicationErrorException((int)System.Net.HttpStatusCode.Unauthorized, System.Net.HttpStatusCode.Unauthorized.ToString(), "Api key not provided in header");
             }
 
-            var appSettings = context.HttpContext.RequestServices.GetRequiredService<Settings>();
+            var appSettings = context.HttpContext.RequestServices.GetRequiredService<SystemSettings>();
 
             if (!appSettings.ApiKey.Equals(extractedApiKey))
             {

@@ -1,7 +1,7 @@
 using System;
-using MODB.Api.DTOs;
+using MO.MODBApi.DTOs;
 
-namespace MODB.Api{
+namespace MO.MODBApi{
     public class Utilities{
         public static DBResponse<T> StopWatch<T>(Func<T> func){
             var timer = new System.Diagnostics.Stopwatch();

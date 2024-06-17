@@ -1,11 +1,38 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using MODB.Api.Json;
-using MODB.FlatFileDB;
-using Newtonsoft.Json;
+using MO.MODB;
+using MO.MODBApi.Json;
 
-namespace MODB.Api.DTOs{
+namespace MO.MODBApi.DTOs{
+    public class FilterObjectList : FilterObject{
+        public int Page {get; set;} = 1;
+        public int PageSize {get; set;} = 10;
+    }
+
+    public class FilterObject{
+        public string IndexName {get; set;}
+        public CompareOperators? CompareOperator {get; set;}
+        public string Value {get; set;}
+    }
+
+    public class SetUserObject{
+        public string Name {get; set;}
+        public string Collection {get; set;}
+    }
+
+    public class SetObject{
+        public string Key {get; set;}
+        public string Type {get; set;}
+        public string Value {get; set;}
+        public IEnumerable<SetObjectIndexItem> Indices {get; set;}
+        public bool CreateDb {get; set;} = false;
+    }
+    
+    public class SetObjectIndexItem{
+        public string Name {get; set;}
+        public string Value {get; set;}
+        public string Type {get; set;}
+    }
+    
     public class DBResponse<T>{
         public T Result {get; set;}
         public string ProcessingTime {get; set;}
@@ -18,34 +45,13 @@ namespace MODB.Api.DTOs{
     public class DBInformation{
         public string Name {get; set;}
         public long Size {get; set;}
-        public int Manifests {get; set;}
-        public string LastClean {get; set;}
+        public IEnumerable<Index> Indices {get; set;}
     }
 
-    public class CreateDBQueryParams{
-        [Required(AllowEmptyStrings = false)] public string Name {get; set;} 
-        public int? Manifests {get; set;}
+    public class CreateDBObject{
+        public string Name {get; set;} 
     }
-    public class SetKeyQueryParams{
-        [Required(AllowEmptyStrings = false)] public string Key {get; set;}
-        public IEnumerable<string> Tags {get; set;}
-        public long? TimeStamp {get; set;}
-        public bool? CreateDb {get; set;}
-    }
-    public class GetQueryParams{
-        public int Page {get; set;} = 1;
-        public int PageSize {get; set;} = 10;
-    }
-
-    public class GetTagsFilteredQueryParams : GetQueryParams{
-        public string Text {get; set;}
-    }
-
-    public class GetFilteredQueryParams : GetQueryParams{
-        public IEnumerable<string> Tags {get; set;}
-        public long? From {get; set;}
-        public long? To {get; set;}
-    }
+    
 
     public class MODBRecordsResponse{
         public MODBRecordsResponse(PagedList<string> result){

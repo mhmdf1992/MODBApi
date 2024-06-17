@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MODB.Api.Json{
+namespace MO.MODBApi.Json{
     public class MODBRecordJsonConverter : JsonConverter<string>
     {
         public override string Read(

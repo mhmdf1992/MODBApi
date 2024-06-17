@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
-using MODB.FlatFileDB;
+using MO.MODB;
 using System;
 using System.Threading.Tasks;
 
-namespace MODB.Api.Attributes
+namespace MO.MODBApi.Attributes
 {
     [AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
     public class ApiKeyAttribute : Attribute, IAsyncActionFilter
@@ -17,9 +17,9 @@ namespace MODB.Api.Attributes
                 throw new Exceptions.ApplicationErrorException((int)System.Net.HttpStatusCode.Unauthorized, System.Net.HttpStatusCode.Unauthorized.ToString(), "Api key not provided in header");
             }
 
-            var clientsDB = context.HttpContext.RequestServices.GetRequiredService<IKeyValDB>();
+            var sysDBCollection = context.HttpContext.RequestServices.GetRequiredService<IDBCollection>();
             try{
-                if (!clientsDB.Exists(extractedApiKey))
+                if (!sysDBCollection.Get("users").Exists(extractedApiKey.ToString()))
                 {
                     throw new Exceptions.ApplicationErrorException((int)System.Net.HttpStatusCode.Unauthorized, System.Net.HttpStatusCode.Unauthorized.ToString(), "Api key not valid");
                 }

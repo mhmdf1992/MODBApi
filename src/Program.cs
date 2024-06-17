@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace MODB.Api
+namespace MO.MODBApi
 {
     public class Program
     {

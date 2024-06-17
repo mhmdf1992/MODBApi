@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 
-namespace MODB.Api.Exceptions
+namespace MO.MODBApi.Exceptions
 {
     [Serializable]
     public class ApplicationErrorException : ApiBaseException

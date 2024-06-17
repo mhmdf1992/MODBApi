@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace MODB.Api.Attributes
+namespace MO.MODBApi.Attributes
 {
     public class CommaSeparatedArrayModelBinder : IModelBinder
     {
